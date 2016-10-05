@@ -8,11 +8,12 @@ using Microsoft.Xna.Framework;
 
 class Grid
 {
+    protected bool[,] grid;
 
     public Grid()
         {
-
-        }
+        grid = new bool[12, 20];
+    }
 
 
     public void Update(GameTime gameTime)

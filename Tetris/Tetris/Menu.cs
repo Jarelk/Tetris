@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 
 class Menu
 {
+
     public Menu()
     {
     }
