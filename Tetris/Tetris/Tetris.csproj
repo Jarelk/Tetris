@@ -38,6 +38,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Grid.cs" />
     <Compile Include="InputHelper.cs" />
     <Compile Include="Tetris.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
