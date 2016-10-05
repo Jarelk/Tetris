@@ -5,9 +5,11 @@ using Microsoft.Xna.Framework.Input;
 
 
 public class Tetris : Game
-    {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+{
+    GraphicsDeviceManager graphics;
+    SpriteBatch spriteBatch;
+    Grid grid;
+    InputHelper handleInput;
 
 
     [STAThread]
@@ -18,10 +20,13 @@ public class Tetris : Game
     }
 
     public Tetris()
-        {
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-        }
+    {
+        graphics = new GraphicsDeviceManager(this);
+        Content.RootDirectory = "Content";
+
+        handleInput = new InputHelper();
+        grid = new Grid();
+    }
 
         protected override void Initialize()
         {
@@ -46,17 +51,19 @@ public class Tetris : Game
 
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
-
+        // TODO: Add your update logic 
+            grid.Update(gameTime);
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
+        GraphicsDevice.Clear(Color.CornflowerBlue);
+        spriteBatch.Begin();
+        grid.Draw(gameTime);
+        spriteBatch.End();
             // TODO: Add your drawing code here
 
-            base.Draw(gameTime);
+        base.Draw(gameTime);
         }
     }
