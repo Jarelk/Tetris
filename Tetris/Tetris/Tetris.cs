@@ -59,6 +59,4 @@ public class Tetris : Game
 
             base.Draw(gameTime);
         }
-
-    bla
     }
