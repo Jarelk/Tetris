@@ -15,12 +15,12 @@ class Grid
         }
 
 
-    protected void Update(GameTime gameTime)
+    public void Update(GameTime gameTime)
         {
 
         }
 
-    protected void Draw(GameTime gameTime)
+    public void Draw(GameTime gameTime)
         {
 
         }
