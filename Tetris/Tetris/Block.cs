@@ -10,14 +10,19 @@ using Microsoft.Xna.Framework.Input;
 class Block
 {
     Vector2 sprite;
-    Vector2[,] Position;
+    Vector2 position;
+    bool[,] blockMatrix;
     Keys key;
 
     public Block()
     {
-
+        blockMatrix = new bool[4, 4];
     }
 
+    public void HandleInput(InputHelper inputHelper)
+    {
+
+    }
     public void Update(GameTime gameTime)
     {
 

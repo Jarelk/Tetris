@@ -13,7 +13,7 @@ class Grid
     public Grid()
         {
         grid = new bool[12, 20];
-    }
+        }
 
 
     public void Update(GameTime gameTime)
