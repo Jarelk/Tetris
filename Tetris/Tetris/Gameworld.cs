@@ -17,36 +17,12 @@ class GameWorld
     {
         Playing, GameOver
     }
-
-    /*
-     * screen width and height
-     */
     int screenWidth, screenHeight;
-
-    /*
-     * random number generator
-     */
     Random random;
-
-    /*
-     * main game font
-     */
     SpriteFont font;
-
-    /*
-     * sprite for representing a single tetris block element
-     */
     Texture2D block;
-
-    /*
-     * the current game state
-     */
     GameState gameState;
-
-    /*
-     * the main playing grid
-     */
-    TetrisGrid grid;
+    Grid grid;
 
     public GameWorld(int width, int height, ContentManager Content)
     {
@@ -57,7 +33,7 @@ class GameWorld
 
         block = Content.Load<Texture2D>("block");
         font = Content.Load<SpriteFont>("SpelFont");
-        grid = new TetrisGrid(block);
+        grid = new Grid(block);
     }
 
     public void Reset()
@@ -76,7 +52,6 @@ class GameWorld
     {
         spriteBatch.Begin();
         grid.Draw(gameTime, spriteBatch);
-        DrawText("Hello!", Vector2.Zero, spriteBatch);
         spriteBatch.End();
     }
 

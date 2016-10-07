@@ -11,6 +11,7 @@ public class Tetris : Game
     SpriteBatch spriteBatch;
     Grid grid;
     InputHelper handleInput;
+    GameWorld gameworld;
 
 
     [STAThread]
@@ -26,9 +27,6 @@ public class Tetris : Game
         Content.RootDirectory = "Content";
 
         handleInput = new InputHelper();
-
-        graphics.PreferredBackBufferWidth = 720;
-        graphics.PreferredBackBufferHeight = 600;
     }
 
         protected override void Initialize()
@@ -42,7 +40,7 @@ public class Tetris : Game
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            grid = new Grid(Content);
+            gameworld = new GameWorld(720, 600, Content);
 
         // TODO: use this.Content to load your game content here
     }
@@ -56,6 +54,7 @@ public class Tetris : Game
         protected override void Update(GameTime gameTime)
         {
         // TODO: Add your update logic 
+            handleInput.Update(gameTime);
             grid.Update(gameTime);
             base.Update(gameTime);
         }
@@ -63,9 +62,7 @@ public class Tetris : Game
         protected override void Draw(GameTime gameTime)
         {
         GraphicsDevice.Clear(Color.CornflowerBlue);
-        spriteBatch.Begin();
         grid.Draw(gameTime, spriteBatch);
-        spriteBatch.End();
             // TODO: Add your drawing code here
 
         base.Draw(gameTime);

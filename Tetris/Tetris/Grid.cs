@@ -13,9 +13,9 @@ class Grid
     protected bool[,] grid;
     Texture2D gridBlock;
     Vector2 position;
-    public Grid(ContentManager content)
+    public Grid(Texture2D block)
         {
-        gridBlock = content.Load<Texture2D>("block");
+        gridBlock = block;
         grid = new bool[12, 20];
         position = Vector2.Zero;
         }
