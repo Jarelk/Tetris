@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 class Block
 {
     Vector2 sprite;
-    Vector2 Position;
+    Vector2[,] Position;
     Keys key;
 
     public Block()
