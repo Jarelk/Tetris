@@ -8,6 +8,6 @@ class TestSquare : Block
 {
     public TestSquare() : base()
     {
-        blockMatrix = { { 0, 1, 1, 0} {0, 1, 1, 0 } {0, 0, 0, 0 } {0, 0, 0, 0 } };
+        blockMatrix[0, 1] = 1; blockMatrix[1,1] = 1; blockMatrix[0, 2] = 1; blockMatrix[1, 2] = 1;
     }
 }
