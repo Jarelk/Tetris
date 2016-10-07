@@ -42,6 +42,7 @@
     <Compile Include="Grid.cs" />
     <Compile Include="InputHelper.cs" />
     <Compile Include="Menu.cs" />
+    <Compile Include="TestSquare.cs" />
     <Compile Include="Tetris.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

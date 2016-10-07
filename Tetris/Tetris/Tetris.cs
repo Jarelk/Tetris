@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
 
@@ -25,7 +26,9 @@ public class Tetris : Game
         Content.RootDirectory = "Content";
 
         handleInput = new InputHelper();
-        grid = new Grid();
+
+        graphics.PreferredBackBufferWidth = 720;
+        graphics.PreferredBackBufferHeight = 600;
     }
 
         protected override void Initialize()
@@ -39,9 +42,10 @@ public class Tetris : Game
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            grid = new Grid(Content);
 
-            // TODO: use this.Content to load your game content here
-        }
+        // TODO: use this.Content to load your game content here
+    }
 
         protected override void UnloadContent()
         {
@@ -60,7 +64,7 @@ public class Tetris : Game
         {
         GraphicsDevice.Clear(Color.CornflowerBlue);
         spriteBatch.Begin();
-        grid.Draw(gameTime);
+        grid.Draw(gameTime, spriteBatch);
         spriteBatch.End();
             // TODO: Add your drawing code here
 

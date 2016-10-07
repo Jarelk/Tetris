@@ -9,14 +9,14 @@ using Microsoft.Xna.Framework.Input;
 
 class Block
 {
-    Vector2 sprite;
-    Vector2 position;
-    bool[,] blockMatrix;
-    Keys key;
+    protected Vector2 sprite;
+    protected Vector2 position;
+    protected int[,] blockMatrix;
+    protected Keys key;
 
     public Block()
     {
-        blockMatrix = new bool[4, 4];
+        blockMatrix = new int[4, 4];
     }
 
     public void HandleInput(InputHelper inputHelper)
