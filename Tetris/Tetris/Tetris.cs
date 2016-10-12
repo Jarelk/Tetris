@@ -16,22 +16,20 @@ public class Tetris : Game
     [STAThread]
     static void Main(string[] args)
     {
-        System.Timers.Timer tetrisTimer = new System.Timers.Timer();
-        tetrisTimer.Interval = 1000;
-        tetrisTimer.Elapsed += new ElapsedEventHandler(timerPass);
-        tetrisTimer.Enabled = true;
         Tetris game = new Tetris();
         game.Run();
     }
 
-    public static void timerPass(object source, ElapsedEventArgs e)
+    protected void timerPass(object source, ElapsedEventArgs e)
     {
-        
+        gameworld.Metronome();
     }
 
     public Tetris()
     {
         graphics = new GraphicsDeviceManager(this);
+        graphics.PreferredBackBufferWidth = 720;
+        graphics.PreferredBackBufferHeight = 600;
         Content.RootDirectory = "Content";
 
         handleInput = new InputHelper();
@@ -48,7 +46,11 @@ public class Tetris : Game
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            gameworld = new GameWorld(720, 600, Content);
+            gameworld = new GameWorld(Content);
+        System.Timers.Timer tetrisTimer = new System.Timers.Timer();
+        tetrisTimer.Interval = 1000;
+        tetrisTimer.Elapsed += new ElapsedEventHandler(timerPass);
+        tetrisTimer.Enabled = true;
 
         // TODO: use this.Content to load your game content here
     }
@@ -63,6 +65,8 @@ public class Tetris : Game
         {
         // TODO: Add your update logic 
         handleInput.Update(gameTime);
+        gameworld.Update(gameTime);
+        gameworld.HandleInput(gameTime, handleInput);
             //grid.Update(gameTime);
             base.Update(gameTime);
         }

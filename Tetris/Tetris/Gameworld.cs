@@ -18,7 +18,6 @@ class GameWorld
     {
         Playing, GameOver
     }
-    int screenWidth, screenHeight;
     Random random;
     SpriteFont font;
     Texture2D gridblock, redblock;
@@ -26,10 +25,8 @@ class GameWorld
     Grid grid;
     Block block;
 
-    public GameWorld(int width, int height, ContentManager Content)
+    public GameWorld(ContentManager Content)
     {
-        screenWidth = width;
-        screenHeight = height;
         random = new Random();
         gameState = GameState.Playing;
 
@@ -45,10 +42,17 @@ class GameWorld
 
     public void HandleInput(GameTime gameTime, InputHelper inputHelper)
     {
+        block.HandleInput(inputHelper);
     }
 
     public void Update(GameTime gameTime)
     {
+        block.Update(gameTime);
+    }
+
+    public void Metronome()
+    {
+        block.Metronome();
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)

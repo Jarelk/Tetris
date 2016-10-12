@@ -31,13 +31,18 @@ class Block
 
     public void HandleInput(InputHelper inputHelper)
     {
-        if (inputHelper.KeyPressed(Keys.Left))
+        int[,] drawingGrid = grid.getGrid;
+        if (inputHelper.KeyPressed(Keys.Left) && position.X >= -1)
         {
-            potentialPosition.X--;
+            position.X--;
         }
-        if (inputHelper.KeyPressed(Keys.Right))
+        if (inputHelper.KeyPressed(Keys.Right) && position.X < 8)
         {
-            potentialPosition.X++;
+            position.X++;
+        }
+        if (inputHelper.KeyPressed(Keys.Down) && position.Y < 16)
+        {
+            position.Y++;
         }
     }
     public void Update(GameTime gameTime)
@@ -45,11 +50,16 @@ class Block
 
     }
 
+    public void Metronome()
+    {
+      if(position.Y < 16) position.Y++;
+    }
+
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Grid grid)
     {
         int[,] drawingGrid = grid.getGrid;
         for (int i = 0; i < 4; i++) { for (int j = 0; j < 4; j++) {
-                if (drawingGrid[(int)position.X + i, (int)position.Y + j] == 0 && blockMatrix[i,j] == 1) {
+                if (drawingGrid[(int)position.X + i + 2, (int)position.Y + j + 2] == 0 && blockMatrix[i,j] == 1) {
                     spriteBatch.Draw(sprite, new Vector2((position.X + i) * 30, (position.Y + j) * 30), Color.White);
                 }
                     }
