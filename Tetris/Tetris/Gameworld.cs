@@ -42,7 +42,7 @@ class GameWorld
 
     public void HandleInput(GameTime gameTime, InputHelper inputHelper)
     {
-        block.HandleInput(inputHelper);
+        block.HandleInput(inputHelper, grid);
     }
 
     public void Update(GameTime gameTime)

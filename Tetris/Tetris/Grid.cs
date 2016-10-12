@@ -16,7 +16,7 @@ class Grid
     public Grid(Texture2D block)
         {
         gridBlock = block;
-        grid = new int[15, 24];
+        grid = new int[16, 24];
         position = Vector2.Zero;
         }
 

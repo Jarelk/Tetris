@@ -29,15 +29,29 @@ class Block
         }
     }
 
-    public void HandleInput(InputHelper inputHelper)
+    public void HandleInput(InputHelper inputHelper, Grid grid)
     {
         int[,] drawingGrid = grid.getGrid;
-        if (inputHelper.KeyPressed(Keys.Left) && position.X >= -1)
+        if (inputHelper.KeyPressed(Keys.Left) && position.X >= 0)
         {
+            for(int i = 0; i < 4; i++)
+            {
+                if(!((drawingGrid[(int)position.X + 2, (int)position.Y + i + 2] == 0 && blockMatrix[0,i] ==0) || drawingGrid[(int)position.X + 1, (int)position.Y +i + 2] == 0))
+                {
+                    return;
+                }
+            }
             position.X--;
         }
-        if (inputHelper.KeyPressed(Keys.Right) && position.X < 8)
+        if (inputHelper.KeyPressed(Keys.Right) && position.X < 10)
         {
+            for (int i = 0; i < 4; i++)
+            {
+                if (!((drawingGrid[(int)position.X + 5, (int)position.Y + i + 2] == 0 && blockMatrix[3, i] == 0) || drawingGrid[(int)position.X + 6, (int)position.Y + i + 2] == 0))
+                {
+                    return;
+                }
+            }
             position.X++;
         }
         if (inputHelper.KeyPressed(Keys.Down) && position.Y < 16)
