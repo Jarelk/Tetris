@@ -3,22 +3,30 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
-
+using System.Timers;
 
 public class Tetris : Game
 {
     GraphicsDeviceManager graphics;
     SpriteBatch spriteBatch;
-    Grid grid;
     InputHelper handleInput;
     GameWorld gameworld;
-
+    Timer tetrisTimer;
 
     [STAThread]
     static void Main(string[] args)
     {
+        System.Timers.Timer tetrisTimer = new System.Timers.Timer();
+        tetrisTimer.Interval = 1000;
+        tetrisTimer.Elapsed += new ElapsedEventHandler(timerPass);
+        tetrisTimer.Enabled = true;
         Tetris game = new Tetris();
         game.Run();
+    }
+
+    public static void timerPass(object source, ElapsedEventArgs e)
+    {
+        
     }
 
     public Tetris()
@@ -54,15 +62,15 @@ public class Tetris : Game
         protected override void Update(GameTime gameTime)
         {
         // TODO: Add your update logic 
-            handleInput.Update(gameTime);
-            grid.Update(gameTime);
+        handleInput.Update(gameTime);
+            //grid.Update(gameTime);
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
         GraphicsDevice.Clear(Color.CornflowerBlue);
-        grid.Draw(gameTime, spriteBatch);
+        gameworld.Draw(gameTime, spriteBatch);
             // TODO: Add your drawing code here
 
         base.Draw(gameTime);

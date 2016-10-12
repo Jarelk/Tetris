@@ -21,9 +21,10 @@ class GameWorld
     int screenWidth, screenHeight;
     Random random;
     SpriteFont font;
-    Texture2D block;
+    Texture2D gridblock, redblock;
     GameState gameState;
     Grid grid;
+    Block block;
 
     public GameWorld(int width, int height, ContentManager Content)
     {
@@ -32,9 +33,10 @@ class GameWorld
         random = new Random();
         gameState = GameState.Playing;
 
-        block = Content.Load<Texture2D>("block");
-        font = Content.Load<SpriteFont>("SpelFont");
-        grid = new Grid(block);
+        gridblock = Content.Load<Texture2D>("block");
+        redblock = Content.Load<Texture2D>("RedBlock");
+        grid = new Grid(gridblock);
+        block = new TestSquare(redblock);
     }
 
     public void Reset()
@@ -53,6 +55,7 @@ class GameWorld
     {
         spriteBatch.Begin();
         grid.Draw(gameTime, spriteBatch);
+        block.Draw(gameTime, spriteBatch, grid);
         spriteBatch.End();
     }
 

@@ -8,9 +8,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 class TestSquare : Block
 {
-    public TestSquare(Texture2D sprite) : base()
+    public TestSquare(Texture2D sprite) : base(sprite)
     {
         this.sprite = sprite;
         blockMatrix[0, 1] = 1; blockMatrix[1,1] = 1; blockMatrix[0, 2] = 1; blockMatrix[1, 2] = 1;
+        position = new Vector2(3, 5);
     }
 }
