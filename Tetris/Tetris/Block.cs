@@ -58,6 +58,14 @@ class Block
         {
             position.Y++;
         }
+        if (inputHelper.KeyPressed(Keys.E))
+        {
+            RotateClockwise();
+        }
+        if (inputHelper.KeyPressed(Keys.Q))
+        {
+            RotateCounterClockwise();
+        }
     }
     public void Update(GameTime gameTime)
     {
@@ -78,6 +86,32 @@ class Block
                 }
                     }
         }
+    }
+
+    public void RotateClockwise()
+    {
+        int[,] rotateMatrix = new int[4, 4];
+        for(int i = 0; i < 4; i++)
+        {
+            for(int j = 0; j < 4; i++)
+            {
+                rotateMatrix[i, j] = blockMatrix[j, 3-i];
+            }
+        }
+        blockMatrix = rotateMatrix;
+    }
+
+    public void RotateCounterClockwise()
+    {
+        int[,] rotateMatrix = new int[4, 4];
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; i++)
+            {
+                rotateMatrix[i, j] = blockMatrix[3-j,i];
+            }
+        }
+        blockMatrix = rotateMatrix;
     }
 
     public void Die()
