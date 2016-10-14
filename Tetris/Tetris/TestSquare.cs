@@ -12,6 +12,6 @@ class TestSquare : Block
     {
         this.sprite = sprite;
         blockMatrix[1, 1] = 1; blockMatrix[2,1] = 1; blockMatrix[2, 2] = 1; blockMatrix[2, 3] = 1;
-        position = new Vector2(3, 5);
+        position = new Point(3, 5);
     }
 }

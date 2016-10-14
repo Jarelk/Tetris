@@ -52,7 +52,7 @@ class GameWorld
 
     public void Metronome()
     {
-        block.Metronome();
+        block.Metronome(grid);
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch)

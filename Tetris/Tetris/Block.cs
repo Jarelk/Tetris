@@ -10,16 +10,15 @@ using Microsoft.Xna.Framework.Input;
 class Block
 {
     protected Texture2D sprite;
-    public Vector2 position;
-    public Vector2 potentialPosition;
+    public Point position;
+    public Point potentialPosition;
     protected int[,] blockMatrix;
     protected Keys key;
-    protected int blockType;
 
     public Block(Texture2D sprite)
     {
         sprite = this.sprite;
-        position = new Vector2(4,0);
+        position = new Point(4,0);
         potentialPosition = position;
         blockMatrix = new int[4, 4];
         for (int i = 0; i < 4; i++)
@@ -31,40 +30,25 @@ class Block
 
     public void HandleInput(InputHelper inputHelper, Grid grid)
     {
-        int[,] drawingGrid = grid.getGrid;
-        if (inputHelper.KeyPressed(Keys.Left) && position.X >= 0)
+        if (inputHelper.KeyPressed(Keys.Left) && !Collission(blockMatrix, 0, grid))
         {
-            for(int i = 0; i < 4; i++)
-            {
-                if(!((drawingGrid[(int)position.X + 2, (int)position.Y + i + 2] == 0 && blockMatrix[0,i] ==0) || drawingGrid[(int)position.X + 1, (int)position.Y +i + 2] == 0))
-                {
-                    return;
-                }
-            }
             position.X--;
         }
-        if (inputHelper.KeyPressed(Keys.Right) && position.X < 10)
+        if (inputHelper.KeyPressed(Keys.Right) && !Collission(blockMatrix, 1, grid))
         {
-            for (int i = 0; i < 4; i++)
-            {
-                if (!((drawingGrid[(int)position.X + 5, (int)position.Y + i + 2] == 0 && blockMatrix[3, i] == 0) || drawingGrid[(int)position.X + 6, (int)position.Y + i + 2] == 0))
-                {
-                    return;
-                }
-            }
             position.X++;
         }
-        if (inputHelper.KeyPressed(Keys.Down) && position.Y < 16)
+        if (inputHelper.KeyPressed(Keys.Down) && !Collission(blockMatrix, 2, grid))
         {
             position.Y++;
         }
         if (inputHelper.KeyPressed(Keys.E))
         {
-            RotateClockwise();
+            RotateClockwise(grid);
         }
         if (inputHelper.KeyPressed(Keys.Q))
         {
-            RotateCounterClockwise();
+            RotateCounterClockwise(grid);
         }
     }
     public void Update(GameTime gameTime)
@@ -72,9 +56,71 @@ class Block
 
     }
 
-    public void Metronome()
+    public void Metronome(Grid grid)
     {
-      if(position.Y < 16) position.Y++;
+      if(!Collission(blockMatrix, 2, grid)) position.Y++;
+    }
+
+    public bool Collission(int[,] matrix, int direction, Grid grid)
+    {
+        int[,] drawingGrid = grid.getGrid;
+        if (direction == 0) //Checking for left movement
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                for(int j = 0; j < 4; j++)
+                {
+                    if (drawingGrid[position.X + 1 + i, position.Y + 2 + j] != 0 && matrix[i, j] == 1) return true;
+                }
+            }
+            return false;
+            
+        }
+        else if (direction == 1) //Checking for right movement
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (drawingGrid[position.X + 3 + i, position.Y + 2 + j] != 0 && matrix[i, j] == 1) return true;
+                }
+            }
+            return false;
+        }
+        else if (direction == 2) //Checking for downwards movement
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (drawingGrid[position.X + 2 + i, position.Y + 3 + j] != 0 && matrix[i, j] == 1) return true;
+                }
+            }
+            return false;
+        }
+        else if (direction == 3) //Checking for rotation collision
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (drawingGrid[position.X + 2 + i, position.Y + 2 + j] != 0 && matrix[i, j] == 1) return true;
+                }
+            }
+            return false;
+        }
+        else if (direction == 4) // Checking for wall kick
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (drawingGrid[position.X + 2 + i, position.Y + 2 + j] == 9 && matrix[i, j] == 1) return true;
+                }
+            }
+            return false;
+        }
+        else return true;
     }
 
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Grid grid)
@@ -88,8 +134,9 @@ class Block
         }
     }
 
-    public void RotateClockwise()
+    public void RotateClockwise(Grid grid)
     {
+
         int[,] rotateMatrix = new int[4, 4];
         for(int i = 0; i < 4; i++)
         {
@@ -98,10 +145,16 @@ class Block
                 rotateMatrix[i, j] = blockMatrix[j, 3-i];
             }
         }
-        blockMatrix = rotateMatrix;
+        if (!Collission(rotateMatrix, 3, grid)) blockMatrix = rotateMatrix;
+        else if (Collission(rotateMatrix, 4, grid))
+        {
+            if (position.X > 8 && !Collission(rotateMatrix, 0, grid)) { position.X--; blockMatrix = rotateMatrix; }
+            else if (position.X < 9 && !Collission(rotateMatrix, 1, grid)) { position.X++; blockMatrix = rotateMatrix; }
+        }
+        else return;
     }
 
-    public void RotateCounterClockwise()
+    public void RotateCounterClockwise(Grid grid)
     {
         int[,] rotateMatrix = new int[4, 4];
         for (int i = 0; i < 4; i++)
@@ -111,7 +164,13 @@ class Block
                 rotateMatrix[i, j] = blockMatrix[3-j,i];
             }
         }
-        blockMatrix = rotateMatrix;
+        if (!Collission(rotateMatrix, 3, grid)) blockMatrix = rotateMatrix;
+        else if (Collission(rotateMatrix, 4, grid))
+        {
+            if (position.X > 8 && !Collission(rotateMatrix, 0, grid)) { position.X--; blockMatrix = rotateMatrix; }
+            else if (position.X < 9 && !Collission(rotateMatrix, 1, grid)) { position.X++; blockMatrix = rotateMatrix; }
+        }
+        else return;
     }
 
     public void Die()
