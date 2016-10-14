@@ -18,6 +18,18 @@ class Grid
         gridBlock = block;
         grid = new int[16, 24];
         position = Vector2.Zero;
+
+        for (int x = 0; x < 2; x++)
+            for (int y = 0; y < 24; y++)
+                grid[x, y] = 9;
+
+        for (int x = 14; x < 16; x++)
+            for (int y = 0; y < 24; y++)
+                grid[x, y] = 9;
+
+        for (int x = 0; x < 16; x++)
+            for (int y = 22; y < 24; y++)
+                grid[x, y] = 9;
         }
 
     public void Update(GameTime gameTime)
