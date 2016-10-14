@@ -93,7 +93,7 @@ class Block
         int[,] rotateMatrix = new int[4, 4];
         for(int i = 0; i < 4; i++)
         {
-            for(int j = 0; j < 4; i++)
+            for(int j = 0; j < 4; j++)
             {
                 rotateMatrix[i, j] = blockMatrix[j, 3-i];
             }
@@ -106,7 +106,7 @@ class Block
         int[,] rotateMatrix = new int[4, 4];
         for (int i = 0; i < 4; i++)
         {
-            for (int j = 0; j < 4; i++)
+            for (int j = 0; j < 4; j++)
             {
                 rotateMatrix[i, j] = blockMatrix[3-j,i];
             }

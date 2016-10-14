@@ -11,7 +11,6 @@ public class Tetris : Game
     SpriteBatch spriteBatch;
     InputHelper handleInput;
     GameWorld gameworld;
-    Timer tetrisTimer;
 
     [STAThread]
     static void Main(string[] args)
