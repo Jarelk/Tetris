@@ -12,6 +12,13 @@ class TestSquare : Block
     {
         this.sprite = sprite;
         blockMatrix[1, 1] = 1; blockMatrix[2,1] = 1; blockMatrix[2, 2] = 1; blockMatrix[2, 3] = 1;
-        position = new Point(3, 5);
+        position = new Point(3, 0);
+    }
+
+    public override void Reset()
+    {
+        base.Reset();
+        Array.Clear(blockMatrix, 0, 16);
+        blockMatrix[1, 1] = 1; blockMatrix[2, 1] = 1; blockMatrix[2, 2] = 1; blockMatrix[2, 3] = 1;
     }
 }

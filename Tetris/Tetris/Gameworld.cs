@@ -22,7 +22,7 @@ class GameWorld
     SpriteFont font;
     Texture2D gridblock, redblock;
     GameState gameState;
-    Grid grid;
+    static Grid grid;
     Block block;
 
     public GameWorld(ContentManager Content)
@@ -32,7 +32,7 @@ class GameWorld
 
         gridblock = Content.Load<Texture2D>("block");
         redblock = Content.Load<Texture2D>("RedBlock");
-        grid = new Grid(gridblock);
+        grid = new Grid(gridblock, redblock);
         block = new TestSquare(redblock);
     }
 
@@ -70,7 +70,6 @@ class GameWorld
     {
         spriteBatch.DrawString(font, text, positie, Color.Blue);
     }
-
     public Random Random
     {
         get { return random; }

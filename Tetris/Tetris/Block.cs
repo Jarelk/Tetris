@@ -14,6 +14,7 @@ class Block
     public Point potentialPosition;
     protected int[,] blockMatrix;
     protected Keys key;
+    protected bool colliding = false;
 
     public Block(Texture2D sprite)
     {
@@ -58,7 +59,7 @@ class Block
 
     public void Metronome(Grid grid)
     {
-      if(!Collission(blockMatrix, 2, grid)) position.Y++;
+        if (!Collission(blockMatrix, 2, grid)) position.Y++;
     }
 
     public bool Collission(int[,] matrix, int direction, Grid grid)
@@ -93,7 +94,7 @@ class Block
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    if (drawingGrid[position.X + 2 + i, position.Y + 3 + j] != 0 && matrix[i, j] == 1) return true;
+                    if (drawingGrid[position.X + 2 + i, position.Y + 3 + j] != 0 && matrix[i, j] == 1) { Grid.SetBlock(this); Reset(); return true;}
                 }
             }
             return false;
@@ -173,12 +174,13 @@ class Block
         else return;
     }
 
-    public void Die()
+    public int[,] getMatrix
     {
-        Reset();
+        get { return blockMatrix; }
     }
 
-    public void Reset()
+    public virtual void Reset()
     {
+        position = new Point(4, 0);
     }
 }
