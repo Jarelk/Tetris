@@ -56,7 +56,10 @@ class Block
         }
         if (inputHelper.KeyPressed(Keys.W))
         {
-            position = ghostPosition;
+            while(!Collission(blockMatrix, 2, position, grid))
+            {
+                position.Y++;
+            }
             Grid.SetBlock(this);
             Reset(grid);
         }
@@ -73,6 +76,7 @@ class Block
     public void Metronome(Grid grid)
     {
         if (!Collission(blockMatrix, 2, position, grid)) position.Y++;
+        if (Collission(blockMatrix, 2, position, grid)) Grid.SetBlock(this);
     }
 
     public bool Collission(int[,] matrix, int direction, Point position, Grid grid)
