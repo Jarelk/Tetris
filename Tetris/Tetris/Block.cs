@@ -54,7 +54,7 @@ class Block
         {
             RotateCounterClockwise(grid); ghostPosition.Y = position.Y;
         }
-        if (inputHelper.KeyPressed(Keys.S))
+        if (inputHelper.KeyPressed(Keys.W))
         {
             position = ghostPosition;
             Grid.SetBlock(this);
