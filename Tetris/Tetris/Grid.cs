@@ -11,12 +11,13 @@ using Microsoft.Xna.Framework.Graphics;
 class Grid
 {
     protected static int[,] grid;
-    Texture2D gridBlock, redBlock;
+    Texture2D blocks;
     Vector2 position;
-    public Grid(Texture2D block, Texture2D redBlock)
+    int spriteDraw;
+
+    public Grid(Texture2D blocks)
         {
-        gridBlock = block;
-        this.redBlock = redBlock;
+        this.blocks = blocks;
         grid = new int[16, 24];
         position = Vector2.Zero;
 
@@ -43,20 +44,48 @@ class Grid
         for (int i = 0; i < 12; i++)
             for (int j = 0; j < 20; j++)
             {
-                if(grid[i+2,j+2] == 0)
-                spriteBatch.Draw(gridBlock, new Vector2(30 * i, 30 * j), Color.White);
-                else if(grid[i+2,j+2] == 1)
-                spriteBatch.Draw(redBlock, new Vector2(30 * i, 30 * j), Color.White);
+                if (grid[i + 2, j + 2] < 8)
+                {
+                    Rectangle rectangle = new Rectangle(grid[i+2, j+2] * 30, 0, 30, 30);
+                    spriteBatch.Draw(blocks, new Vector2(30 * i, 30 * j), rectangle, Color.White);
+                }
             }
         }
 
     public static void SetBlock(Block block)
     {
+        int rowCount = 0;
         for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 4; j++)
             {
-                if(block.getMatrix[i,j] == 1)grid[block.position.X + 2 + i, block.position.Y + 2 + j] = block.getMatrix[i, j];
+                if(block.getMatrix[i,j] != 0)grid[block.position.X + 2 + i, block.position.Y + 2 + j] = block.getMatrix[i, j];
+            }
+        }
+        for(int i = 2; i < 22; i++)
+        {
+            bool isFilled = true;
+            for (int k = 2; k < 14; k++)
+            {
+                if (grid[k, i] == 0) isFilled = false;
+            }
+            if (isFilled)
+            {
+                RemoveRow(i);
+                rowCount++;
+            }
+        }
+        if(rowCount > 0) Tetris.SetScore = 100 * (int)Math.Pow(2, rowCount-1) * Tetris.SetLevel;
+        Tetris.SetScore = 20 * Tetris.SetLevel;
+    }
+
+    public static void RemoveRow(int a)
+    {
+        for(int i = a; i > 1; i--)
+        {
+            for (int j = 2; j < 14; j++)
+            {
+                grid[j, i] = grid[j, i - 1];
             }
         }
     }

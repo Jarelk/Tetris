@@ -20,7 +20,7 @@ class GameWorld
     }
     Random random;
     SpriteFont font;
-    Texture2D gridblock, redblock;
+    Texture2D blocks;
     GameState gameState;
     static Grid grid;
     Block block;
@@ -30,10 +30,10 @@ class GameWorld
         random = new Random();
         gameState = GameState.Playing;
 
-        gridblock = Content.Load<Texture2D>("block");
-        redblock = Content.Load<Texture2D>("RedBlock");
-        grid = new Grid(gridblock, redblock);
-        block = new TestSquare(redblock);
+        font = Content.Load<SpriteFont>("Score");
+        blocks = Content.Load<Texture2D>("AllBlocks");
+        grid = new Grid(blocks);
+        block = new Block(blocks);
     }
 
     public void Reset()
@@ -66,9 +66,12 @@ class GameWorld
     /*
      * utility method for drawing text on the screen
      */
-    public void DrawText(string text, Vector2 positie, SpriteBatch spriteBatch)
+    public void DrawText(int text, Vector2 positie, SpriteBatch spriteBatch)
     {
-        spriteBatch.DrawString(font, text, positie, Color.Blue);
+        string stringText = text.ToString();
+        spriteBatch.Begin();
+        spriteBatch.DrawString(font, stringText, positie, Color.Black);
+        spriteBatch.End();
     }
     public Random Random
     {
