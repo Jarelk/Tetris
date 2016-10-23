@@ -48,7 +48,7 @@ public class Tetris : Game
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            gameworld = new GameWorld(Content);
+            gameworld = new GameWorld(Content, graphics);
         tetrisTimer = new System.Timers.Timer();
         tetrisTimer.Interval = 2000;
         tetrisTimer.Elapsed += new ElapsedEventHandler(timerPass);
@@ -68,8 +68,8 @@ public class Tetris : Game
         int levelCounter;
         // TODO: Add your update logic 
         handleInput.Update(gameTime);
-        gameworld.Update(gameTime);
         gameworld.HandleInput(gameTime, handleInput);
+        gameworld.Update(gameTime);
         levelCounter =+ SetScore - 1000 * (SetLevel - 1);
         if(levelCounter >= SetLevel * 1000)
         {
@@ -84,10 +84,12 @@ public class Tetris : Game
         protected override void Draw(GameTime gameTime)
         {
         GraphicsDevice.Clear(Color.CornflowerBlue);
+
+
         gameworld.Draw(gameTime, spriteBatch);
-        // TODO: Add your drawing code here
-        gameworld.DrawText(score, new Vector2(400, 20), spriteBatch);
-        gameworld.DrawText(SetLevel, new Vector2(400, 80), spriteBatch);
+       // TODO: Add your drawing code here
+        gameworld.DrawText(score, new Vector2(680, 100), spriteBatch);
+        gameworld.DrawText(SetLevel, new Vector2(565, 148), spriteBatch);
 
         base.Draw(gameTime);
         }
@@ -96,7 +98,7 @@ public class Tetris : Game
     public static int SetScore
     {
         get { return score;}
-        set { score += value; }
+        set { score = value; }
     }
         public double SetTimer
     {
@@ -108,4 +110,5 @@ public class Tetris : Game
         get { return level; }
         set { level = value; }
     }
+
     }

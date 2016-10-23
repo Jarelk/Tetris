@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Block.cs" />
+    <Compile Include="Sidebar.cs" />
     <Compile Include="Gameworld.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="InputHelper.cs" />

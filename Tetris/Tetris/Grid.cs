@@ -12,14 +12,11 @@ class Grid
 {
     protected static int[,] grid;
     Texture2D blocks;
-    Vector2 position;
-    int spriteDraw;
 
     public Grid(Texture2D blocks)
         {
         this.blocks = blocks;
         grid = new int[16, 24];
-        position = Vector2.Zero;
 
         for (int x = 0; x < 2; x++)
             for (int y = 0; y < 24; y++)
@@ -59,7 +56,7 @@ class Grid
         {
             for (int j = 0; j < 4; j++)
             {
-                if(block.getMatrix[i,j] != 0)grid[block.position.X + 2 + i, block.position.Y + 2 + j] = block.getMatrix[i, j];
+                if(block.getMatrix[i,j] != 0)grid[block.position.X + 2 + i, block.position.Y + j] = block.getMatrix[i, j];
             }
         }
         for(int i = 2; i < 22; i++)
@@ -75,8 +72,8 @@ class Grid
                 rowCount++;
             }
         }
-        if(rowCount > 0) Tetris.SetScore = 100 * (int)Math.Pow(2, rowCount-1) * Tetris.SetLevel;
-        Tetris.SetScore = 20 * Tetris.SetLevel;
+        if (rowCount > 0) Tetris.SetScore = Tetris.SetScore + 100 * rowCount + (Tetris.SetLevel + rowCount - 2) * 50;
+        Tetris.SetScore = Tetris.SetScore + 20 + (10 * Tetris.SetLevel);
     }
 
     public static void RemoveRow(int a)
@@ -94,4 +91,21 @@ class Grid
         {
         get { return grid; }
         }
+
+    public void Reset()
+    {
+        grid = new int[16, 24];
+
+        for (int x = 0; x < 2; x++)
+            for (int y = 0; y < 24; y++)
+                grid[x, y] = 9;
+
+        for (int x = 14; x < 16; x++)
+            for (int y = 0; y < 24; y++)
+                grid[x, y] = 9;
+
+        for (int x = 0; x < 16; x++)
+            for (int y = 22; y < 24; y++)
+                grid[x, y] = 9;
+    }
 }
